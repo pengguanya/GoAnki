@@ -14,3 +14,11 @@ from .registry import register
 class GoogleTranslator(HTTPTranslator):
     """Fetch translations from the public Google Translate mobile endpoint."""
 
+    name = "google"
+    base_url = "https://translate.google.com/m"
+
+    def translate(self, text: str, source_lang: str, target_lang: str) -> TranslationResult:
+        text = text.strip()
+        params = {
+            "sl": ensure_language(source_lang),
+            "tl": ensure_language(target_lang),
