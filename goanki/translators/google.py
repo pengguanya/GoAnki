@@ -22,3 +22,11 @@ class GoogleTranslator(HTTPTranslator):
         params = {
             "sl": ensure_language(source_lang),
             "tl": ensure_language(target_lang),
+            "q": text,
+            "ie": "UTF-8",
+        }
+        response = self.request("GET", self.base_url, params=params)
+        translated_text = self._parse_response(response.text)
+        return TranslationResult(
+            engine=self.name,
+            source_lang=params["sl"],
