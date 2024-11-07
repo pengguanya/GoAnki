@@ -30,3 +30,11 @@ class GoogleTranslator(HTTPTranslator):
         return TranslationResult(
             engine=self.name,
             source_lang=params["sl"],
+            target_lang=params["tl"],
+            text=text,
+            translated_text=translated_text,
+            metadata={"url": str(response.url)},
+        )
+
+    def _parse_response(self, html: str) -> Optional[str]:
+        soup = BeautifulSoup(html, "lxml")
