@@ -38,3 +38,12 @@ class GoogleTranslator(HTTPTranslator):
 
     def _parse_response(self, html: str) -> Optional[str]:
         soup = BeautifulSoup(html, "lxml")
+        container = soup.find(class_="result-container")
+        if container and container.text:
+            return container.text.strip()
+        fallback = soup.find(class_="t0")
+        if fallback and fallback.text:
+            return fallback.text.strip()
+        return None
+
+
