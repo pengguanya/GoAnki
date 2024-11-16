@@ -8,3 +8,13 @@ from .writer import write_records
 
 __all__ = [
     "AppConfig",
+    "TargetSpec",
+    "config_from_mapping",
+    "load_config",
+    "override_config",
+    "parse_target_option",
+    "read_input_words",
+    "write_records",
+]
+
+
