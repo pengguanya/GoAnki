@@ -14,3 +14,11 @@ class TransCrawler:
         self.inlang = inlang
         self.outlang = outlang
         self.theword = theword
+        self.keywords ={'sl': self.inlang, 'tl': self.outlang, 'ie':'UTF-8', 'q': self.theword}
+        self.url = 'http://translate.google.com/m'
+
+    def getPage(self):
+        url = self.url
+        keywords = self.keywords
+        try:
+            response = requests.get(url, keywords, headers = self.headers)
