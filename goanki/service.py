@@ -16,3 +16,9 @@ except ImportError:  # pragma: no cover
     tqdm = None
 
 from goanki.cache import TranslationCache
+from goanki.io.config import AppConfig, TargetSpec
+from goanki.models import FlashcardRecord
+from goanki.translators import TranslationResult, TranslatorError, registry
+
+
+@dataclass(slots=True)
