@@ -24,3 +24,16 @@ def write_records(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if output_format == "csv":
         _write_delimited(records, target_specs, output_path, delimiter=",")
+    elif output_format == "tsv":
+        _write_delimited(records, target_specs, output_path, delimiter="\t")
+    elif output_format == "json":
+        _write_json(records, target_specs, output_path)
+    else:
+        raise ValueError(f"Unknown output format '{output_format}'. Use csv, tsv, or json.")
+
+
+def _write_delimited(
+    records: Iterable[FlashcardRecord],
+    target_specs: List[TargetSpec],
+    output_path: Path,
+    *,
