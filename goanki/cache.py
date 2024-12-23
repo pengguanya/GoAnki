@@ -18,3 +18,8 @@ class TranslationCache:
         self._lock = threading.Lock()
         self._conn = sqlite3.connect(self.path, check_same_thread=False)
         self._init_schema()
+
+    def _init_schema(self) -> None:
+        with self._conn:
+            self._conn.execute(
+                """
