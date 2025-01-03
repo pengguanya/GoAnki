@@ -37,3 +37,16 @@ def _write_delimited(
     target_specs: List[TargetSpec],
     output_path: Path,
     *,
+    delimiter: str,
+) -> None:
+    columns = ["prompt"] + [column_label(spec) for spec in target_specs]
+    with output_path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=columns, delimiter=delimiter)
+        writer.writeheader()
+        for record in records:
+            row = {"prompt": record.prompt}
+            for spec in target_specs:
+                result = _find_translation(record, spec)
+                row[column_label(spec)] = result or ""
+            writer.writerow(row)
+
