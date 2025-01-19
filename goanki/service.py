@@ -22,3 +22,9 @@ from goanki.translators import TranslationResult, TranslatorError, registry
 
 
 @dataclass(slots=True)
+class TranslationTask:
+    word: str
+
+
+class TranslationService:
+    """Translate batches of words using configured engines."""
