@@ -30,3 +30,11 @@ class TransCrawler:
 
     def getWord(self):
         mark='class="t0">'
+        content = self.getPage()
+        if not content:
+            print('Load page failed!')
+            return None
+        else:
+            #return content
+            startpos = content.index(mark)
+            remaincont = content[content.find(mark)+len(mark):]
