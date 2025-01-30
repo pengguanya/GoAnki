@@ -23,3 +23,8 @@ class TranslationCache:
         with self._conn:
             self._conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS translations (
+                    engine TEXT NOT NULL,
+                    source_lang TEXT NOT NULL,
+                    target_lang TEXT NOT NULL,
+                    text TEXT NOT NULL,
