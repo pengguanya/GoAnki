@@ -28,3 +28,9 @@ class TranslationTask:
 
 class TranslationService:
     """Translate batches of words using configured engines."""
+
+    def __init__(
+        self,
+        config: AppConfig,
+        *,
+        cache: TranslationCache | None = None,
