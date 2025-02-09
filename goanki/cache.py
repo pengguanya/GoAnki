@@ -28,3 +28,8 @@ class TranslationCache:
                     source_lang TEXT NOT NULL,
                     target_lang TEXT NOT NULL,
                     text TEXT NOT NULL,
+                    translated_text TEXT,
+                    metadata TEXT,
+                    updated_at REAL NOT NULL,
+                    PRIMARY KEY (engine, source_lang, target_lang, text)
+                )
