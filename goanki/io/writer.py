@@ -50,3 +50,16 @@ def _write_delimited(
                 row[column_label(spec)] = result or ""
             writer.writerow(row)
 
+
+def _write_json(
+    records: Iterable[FlashcardRecord],
+    target_specs: List[TargetSpec],
+    output_path: Path,
+) -> None:
+    payload = []
+    for record in records:
+        payload.append(
+            {
+                "prompt": record.prompt,
+                "source": record.source,
+                "translations": [
