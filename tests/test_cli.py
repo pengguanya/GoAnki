@@ -22,3 +22,12 @@ def test_resolve_output_path_defaults(tmp_path: Path):
 
 def test_build_target_specs_sets_prompt_flag():
     args = SimpleNamespace(
+        target=["en:google"],
+        prompt_target="zh:linguee",
+    )
+    config = AppConfig()
+    specs = cli.build_target_specs(args, config)
+    assert len(specs) == 2
+    assert any(spec.use_as_prompt for spec in specs if spec.lang == "zh")
+
+
