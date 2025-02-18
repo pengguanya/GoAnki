@@ -12,3 +12,10 @@ from goanki.io.config import (
 
 
 def test_parse_target_option_supports_engine_flag():
+    spec = parse_target_option("en:linguee", use_as_prompt=True)
+    assert spec.lang == "en"
+    assert spec.engine == "linguee"
+    assert spec.use_as_prompt is True
+
+
+def test_load_config_yaml(tmp_path: Path):
