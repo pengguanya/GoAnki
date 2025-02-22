@@ -10,3 +10,9 @@ from bs4 import BeautifulSoup
 from .base import HTTPTranslator, TranslationResult, ensure_language
 from .registry import register
 
+
+@register
+class LingueeTranslator(HTTPTranslator):
+    """Scrape Linguee dictionary entries."""
+
+    name = "linguee"
