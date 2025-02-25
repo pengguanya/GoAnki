@@ -2,3 +2,7 @@
 
 from __future__ import annotations
 
+from .base import HTTPTranslator, TranslationResult, Translator, TranslatorError
+from .registry import register, registry
+
+# Ensure built-in translators are registered at import time.
