@@ -10,3 +10,7 @@ from typing import Any, Dict, Iterable, Optional, Protocol
 import requests
 
 
+class TranslatorError(RuntimeError):
+    """Raised when a translator fails permanently."""
+
+
