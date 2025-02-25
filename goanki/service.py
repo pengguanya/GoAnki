@@ -34,3 +34,9 @@ class TranslationService:
         config: AppConfig,
         *,
         cache: TranslationCache | None = None,
+    ) -> None:
+        self.config = config
+        self.cache = cache
+        self.log = logging.getLogger("goanki.service")
+        self._translators: Dict[str, object] = {}
+
