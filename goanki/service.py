@@ -40,3 +40,9 @@ class TranslationService:
         self.log = logging.getLogger("goanki.service")
         self._translators: Dict[str, object] = {}
 
+    def translate_words(self, words: Sequence[str]) -> List[FlashcardRecord]:
+        if not words:
+            return []
+        tasks = [TranslationTask(word=word) for word in words]
+        iterator: Iterable[TranslationTask] = tasks
+        if self.config.progress and tqdm:  # pragma: no branch - depends on availability
