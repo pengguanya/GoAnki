@@ -46,3 +46,9 @@ class TranslationService:
         tasks = [TranslationTask(word=word) for word in words]
         iterator: Iterable[TranslationTask] = tasks
         if self.config.progress and tqdm:  # pragma: no branch - depends on availability
+            iterator = tqdm(tasks, desc="Translating", unit="card")
+        records: List[FlashcardRecord] = []
+        with ThreadPoolExecutor(max_workers=self.config.workers) as executor:
+            for record in executor.map(self._translate_task, iterator):
+                records.append(record)
+        return records
