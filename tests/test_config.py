@@ -19,3 +19,10 @@ def test_parse_target_option_supports_engine_flag():
 
 
 def test_load_config_yaml(tmp_path: Path):
+    payload = textwrap.dedent(
+        """
+        source_lang: fr
+        targets:
+          - { lang: en, engine: google }
+        workers: 2
+        cache_enabled: false
