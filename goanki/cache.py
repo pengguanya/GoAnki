@@ -33,3 +33,8 @@ class TranslationCache:
                     updated_at REAL NOT NULL,
                     PRIMARY KEY (engine, source_lang, target_lang, text)
                 )
+                """
+            )
+
+    def get(self, engine: str, source_lang: str, target_lang: str, text: str) -> Optional[tuple[str, Optional[str]]]:
+        """Return cached translation and metadata, if present."""
