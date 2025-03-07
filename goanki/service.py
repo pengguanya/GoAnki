@@ -52,3 +52,9 @@ class TranslationService:
             for record in executor.map(self._translate_task, iterator):
                 records.append(record)
         return records
+
+    def _translate_task(self, task: TranslationTask) -> FlashcardRecord:
+        original = task.word
+        prompt = original
+        translations: List[TranslationResult] = []
+        for spec in self.config.targets:
