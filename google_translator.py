@@ -46,3 +46,11 @@ class TransCrawler:
 # If set() is slower than O(n), this can be used for the speed purpose
 # def del_dups(seq):
 #     '''function to delete duplicate while preserve order'''
+#     seen = {}
+#     newlist = []
+#     for item in seq:
+#         if item not in seen:
+#             seen[item] = True
+#             newlist.append(item)
+#     return newlist
+def html_decode(s):
