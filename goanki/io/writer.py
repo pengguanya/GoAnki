@@ -63,3 +63,16 @@ def _write_json(
                 "prompt": record.prompt,
                 "source": record.source,
                 "translations": [
+                    {
+                        "engine": result.engine,
+                        "target_lang": result.target_lang,
+                        "text": result.translated_text,
+                        "metadata": result.metadata,
+                    }
+                    for result in record.translations
+                ],
+            }
+        )
+    output_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
