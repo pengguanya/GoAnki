@@ -22,3 +22,9 @@ class TranslatorRegistry:
         if key in self._registry:
             raise ValueError(f"Translator '{name}' is already registered.")
         self._registry[key] = translator_cls
+
+    def create(self, name: str, **kwargs) -> Translator:
+        """Instantiate a translator by name."""
+        key = name.lower()
+        translator_cls = self._registry.get(key)
+        if not translator_cls:
