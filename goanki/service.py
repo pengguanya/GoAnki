@@ -58,3 +58,9 @@ class TranslationService:
         prompt = original
         translations: List[TranslationResult] = []
         for spec in self.config.targets:
+            result = self._translate_with_spec(original, spec)
+            translations.append(result)
+            if spec.use_as_prompt:
+                prompt = (
+                    result.metadata.get("formatted_source")
+                    or result.translated_text
