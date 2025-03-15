@@ -76,3 +76,16 @@ def _write_json(
     output_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def _find_translation(record: FlashcardRecord, spec: TargetSpec) -> str | None:
+    for result in record.translations:
+        if result.target_lang == spec.lang and (spec.engine is None or result.engine == spec.engine):
+            return result.translated_text
+    return None
+
+
+def column_label(spec: TargetSpec) -> str:
+    if spec.engine:
+        return f"{spec.lang}:{spec.engine}"
+    return spec.lang
+
+
