@@ -62,3 +62,11 @@ def html_decode(s):
             ("'", '&#39;'),
             ('"', '&quot;'),
             ('>', '&gt;'),
+            ('<', '&lt;'),
+            ('&', '&amp;')
+        )
+    for code in htmlCodes:
+        s = s.replace(code[1], code[0])
+    return s
+
+def transword_writeoutput(inword, outfilename):
