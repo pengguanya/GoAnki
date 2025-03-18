@@ -26,3 +26,10 @@ def test_load_config_yaml(tmp_path: Path):
           - { lang: en, engine: google }
         workers: 2
         cache_enabled: false
+        """
+    )
+    path = tmp_path / "goanki.yaml"
+    path.write_text(payload, encoding="utf-8")
+    config = load_config(path)
+    assert config.source_lang == "fr"
+    assert config.targets[0].engine == "google"
