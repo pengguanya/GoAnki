@@ -16,3 +16,9 @@ class fetch_page:
     @classmethod
     def getpage(cls, url, keywords):
         try:
+            response = requests.get(url, keywords, headers = cls.headers)
+            content = response.text
+            return content
+        except:
+            e = sys.exc_info()
+            print(e)
