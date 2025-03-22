@@ -22,3 +22,9 @@ class fetch_page:
         except:
             e = sys.exc_info()
             print(e)
+            return None
+
+    @classmethod
+    def getsoup(cls, content):
+        if not content:
+            print('Load page failed!')
