@@ -64,3 +64,9 @@ class TranslationService:
                 prompt = (
                     result.metadata.get("formatted_source")
                     or result.translated_text
+                    or prompt
+                )
+        return FlashcardRecord(source=original, prompt=prompt, translations=translations)
+
+    def _translate_with_spec(self, text: str, spec: TargetSpec) -> TranslationResult:
+        engine_name = (spec.engine or "google").lower()
