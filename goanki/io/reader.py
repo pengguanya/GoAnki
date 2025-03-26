@@ -16,3 +16,9 @@ def read_input_words(path: Path, *, deduplicate: bool = True) -> List[str]:
     Read vocabulary terms from AutoNotes exports or plain text files.
 
     AutoNotes files contain a single line with a date field; plain text files
+    contain one entry per line with optional blank lines and header rows.
+    """
+    path = path.expanduser()
+    text = path.read_text(encoding="utf-8")
+    if "_AutoNotes" in path.name:
+        words = _parse_autonotes(text)
