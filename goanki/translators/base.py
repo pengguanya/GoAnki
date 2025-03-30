@@ -14,3 +14,7 @@ class TranslatorError(RuntimeError):
     """Raised when a translator fails permanently."""
 
 
+@dataclass(slots=True)
+class TranslationResult:
+    """Container for a single translation."""
+
