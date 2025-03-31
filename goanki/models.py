@@ -7,3 +7,6 @@ from typing import List
 
 from .translators.base import TranslationResult
 
+
+@dataclass(slots=True)
+class FlashcardRecord:
