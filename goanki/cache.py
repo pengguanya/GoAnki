@@ -38,3 +38,8 @@ class TranslationCache:
 
     def get(self, engine: str, source_lang: str, target_lang: str, text: str) -> Optional[tuple[str, Optional[str]]]:
         """Return cached translation and metadata, if present."""
+        with self._lock, self._conn:  # type: ignore[call-arg]
+            row = self._conn.execute(
+                """
+                SELECT translated_text, metadata
+                FROM translations
