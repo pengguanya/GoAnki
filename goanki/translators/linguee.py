@@ -16,3 +16,9 @@ class LingueeTranslator(HTTPTranslator):
     """Scrape Linguee dictionary entries."""
 
     name = "linguee"
+    base_url = "https://www.linguee.com/"
+    gender_map = {
+        "masculine": "der",
+        "feminine": "die",
+        "neuter": "das",
+        "plural": "die",
