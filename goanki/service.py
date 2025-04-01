@@ -70,3 +70,9 @@ class TranslationService:
 
     def _translate_with_spec(self, text: str, spec: TargetSpec) -> TranslationResult:
         engine_name = (spec.engine or "google").lower()
+        translator = self._get_translator(engine_name)
+        cached = self._fetch_cache(engine_name, self.config.source_lang, spec.lang, text)
+        if cached:
+            translated_text, metadata = cached
+            metadata_obj = json.loads(metadata) if metadata else {}
+            return TranslationResult(
