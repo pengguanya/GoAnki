@@ -18,3 +18,7 @@ class TranslatorError(RuntimeError):
 class TranslationResult:
     """Container for a single translation."""
 
+    engine: str
+    source_lang: str
+    target_lang: str
+    text: str
