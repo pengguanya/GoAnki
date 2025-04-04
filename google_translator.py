@@ -70,3 +70,11 @@ def html_decode(s):
     return s
 
 def transword_writeoutput(inword, outfilename):
+    '''read a word string and save the input word and the output translation into a csv file'''
+    inlang = 'de'
+    outlang = ['en', 'zh']
+    output_list = [inword]
+    for lan in outlang:
+        newword = TransCrawler(inlang, lan, inword)
+        output_list.append(newword.getWord())
+    outstr = "/".join(output_list) + "/\n"
