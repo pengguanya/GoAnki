@@ -33,3 +33,10 @@ def test_load_config_yaml(tmp_path: Path):
     config = load_config(path)
     assert config.source_lang == "fr"
     assert config.targets[0].engine == "google"
+    assert config.cache_enabled is False
+
+
+def test_override_config_applies_multiple_fields():
+    base = AppConfig()
+    overrides = override_config(
+        base,
