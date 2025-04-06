@@ -43,3 +43,8 @@ class TranslationCache:
                 """
                 SELECT translated_text, metadata
                 FROM translations
+                WHERE engine=? AND source_lang=? AND target_lang=? AND text=?
+                """,
+                (engine, source_lang, target_lang, text),
+            ).fetchone()
+        return row if row else None
