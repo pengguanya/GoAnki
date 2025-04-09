@@ -22,3 +22,9 @@ def read_input_words(path: Path, *, deduplicate: bool = True) -> List[str]:
     text = path.read_text(encoding="utf-8")
     if "_AutoNotes" in path.name:
         words = _parse_autonotes(text)
+    else:
+        words = _parse_plain_lines(text.splitlines())
+    words = [word.strip() for word in words if word.strip()]
+    if deduplicate:
+        return deduplicate_preserve_order(words)
+    return words
