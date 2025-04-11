@@ -48,3 +48,8 @@ class TranslationCache:
                 (engine, source_lang, target_lang, text),
             ).fetchone()
         return row if row else None
+
+    def set(
+        self,
+        engine: str,
+        source_lang: str,
