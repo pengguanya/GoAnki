@@ -94,3 +94,11 @@ if '_AutoNotes' in inputfile:
         fieldsepstr = dateregex.search(first_line).group()
         inwordlist = first_line.split(fieldsepstr)[1].split()
 
+# if the file is self-created then it contains multi-lines with empty lines
+# read the the lines and ignore the empty lines and the header (the line containing dateregex)
+else:
+    with open(inputfile, 'r', encoding = 'utf-8') as f:
+        linesgen = (line.rstrip() for line in f)
+        inwordlist = [line for line in linesgen if line and not dateregex.search(line)]
+
+# Delete duplicate in the input list
