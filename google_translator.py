@@ -86,3 +86,11 @@ def transword_writeoutput(inword, outfilename):
 inputfile = sys.argv[1]
 
 dateregex = re.compile('\d{2}\.\d{2}\.\d{4}')
+# if the file is saved from AutoNotes then it is a string
+# read a string from a file
+if '_AutoNotes' in inputfile:
+    with open(inputfile, 'r', encoding = 'utf-8') as f:
+        first_line = f.readline()
+        fieldsepstr = dateregex.search(first_line).group()
+        inwordlist = first_line.split(fieldsepstr)[1].split()
+
