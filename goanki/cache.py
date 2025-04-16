@@ -53,3 +53,8 @@ class TranslationCache:
         self,
         engine: str,
         source_lang: str,
+        target_lang: str,
+        text: str,
+        translated_text: Optional[str],
+        metadata: Optional[str] = None,
+    ) -> None:
