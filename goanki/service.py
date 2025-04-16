@@ -76,3 +76,9 @@ class TranslationService:
             translated_text, metadata = cached
             metadata_obj = json.loads(metadata) if metadata else {}
             return TranslationResult(
+                engine=engine_name,
+                source_lang=self.config.source_lang,
+                target_lang=spec.lang,
+                text=text,
+                translated_text=translated_text,
+                metadata=metadata_obj,
