@@ -10,3 +10,10 @@ from .translators.base import TranslationResult
 
 @dataclass(slots=True)
 class FlashcardRecord:
+    """Represents a single flashcard row."""
+
+    source: str
+    prompt: str
+    translations: List[TranslationResult] = field(default_factory=list)
+
+
