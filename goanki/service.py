@@ -82,3 +82,9 @@ class TranslationService:
                 text=text,
                 translated_text=translated_text,
                 metadata=metadata_obj,
+            )
+        try:
+            result = translator.translate(text, self.config.source_lang, spec.lang)
+        except TranslatorError as exc:
+            self.log.error(
+                "Translator '%s' failed for '%s' (%s->%s): %s",
