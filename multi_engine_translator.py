@@ -28,3 +28,9 @@ class fetch_page:
     def getsoup(cls, content):
         if not content:
             print('Load page failed!')
+            return None
+        else:
+            soup = BeautifulSoup(content, "lxml")
+            return soup
+
+class strformator:
