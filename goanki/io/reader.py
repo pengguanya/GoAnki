@@ -28,3 +28,9 @@ def read_input_words(path: Path, *, deduplicate: bool = True) -> List[str]:
     if deduplicate:
         return deduplicate_preserve_order(words)
     return words
+
+
+def _parse_autonotes(text: str) -> List[str]:
+    first_line = text.splitlines()[0] if text else ""
+    match = DATE_REGEX.search(first_line)
+    if not match:
