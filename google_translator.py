@@ -102,3 +102,11 @@ else:
         inwordlist = [line for line in linesgen if line and not dateregex.search(line)]
 
 # Delete duplicate in the input list
+# Preserve order is only useful when multithread is switch off
+# Not sure about the BigO of set(a_list), if it is O(n*log(n))
+# del_dups can be used to speed up
+#unique_inwordlist = del_dups(inwordlist) # BigO -> O(n)
+
+unique_inwordlist = list(set(inwordlist)) # BigO -> set(a_list): O(n*log(n)) or O(n)???
+
+# define output file name
