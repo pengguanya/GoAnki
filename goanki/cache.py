@@ -58,3 +58,8 @@ class TranslationCache:
         translated_text: Optional[str],
         metadata: Optional[str] = None,
     ) -> None:
+        """Persist a translation result."""
+        with self._lock, self._conn:  # type: ignore[call-arg]
+            self._conn.execute(
+                """
+                INSERT OR REPLACE INTO translations
