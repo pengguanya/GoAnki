@@ -28,3 +28,9 @@ class TranslatorRegistry:
         key = name.lower()
         translator_cls = self._registry.get(key)
         if not translator_cls:
+            available = ", ".join(sorted(self._registry))
+            raise KeyError(f"Translator '{name}' is not registered. Available: {available or 'none'}.")
+        return translator_cls(**kwargs)
+
+    def names(self) -> Iterable[str]:
+        """Return registered names."""
