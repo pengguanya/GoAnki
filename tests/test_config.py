@@ -40,3 +40,14 @@ def test_override_config_applies_multiple_fields():
     base = AppConfig()
     overrides = override_config(
         base,
+        source_lang="fr",
+        targets=[TargetSpec(lang="en", engine="google")],
+        workers=2,
+        secrets={"deepl": "DEEPL_API_KEY"},
+    )
+    assert overrides.source_lang == "fr"
+    assert overrides.targets[0].engine == "google"
+    assert overrides.workers == 2
+    assert overrides.secrets["deepl"] == "DEEPL_API_KEY"
+
+
