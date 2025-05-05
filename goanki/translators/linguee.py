@@ -22,3 +22,9 @@ class LingueeTranslator(HTTPTranslator):
         "feminine": "die",
         "neuter": "das",
         "plural": "die",
+    }
+
+    def translate(self, text: str, source_lang: str, target_lang: str) -> TranslationResult:
+        text = text.strip()
+        src = ensure_language(source_lang)
+        tgt = ensure_language(target_lang)
