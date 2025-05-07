@@ -34,3 +34,9 @@ class fetch_page:
             return soup
 
 class strformator:
+    @staticmethod
+    def keywordsdict(**kwargs):
+        return kwargs
+
+    @staticmethod
+    def mergeurl(mainurl, path):
