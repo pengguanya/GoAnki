@@ -110,3 +110,11 @@ else:
 unique_inwordlist = list(set(inwordlist)) # BigO -> set(a_list): O(n*log(n)) or O(n)???
 
 # define output file name
+outfilename = os.path.splitext(inputfile)[0] + '_GoAnki.csv'
+
+# if the output already exists in current direcotry, remove it. Otherwise do nothing.
+try:
+    os.remove(outfilename)
+except OSError:
+    pass
+
