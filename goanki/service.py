@@ -88,3 +88,9 @@ class TranslationService:
         except TranslatorError as exc:
             self.log.error(
                 "Translator '%s' failed for '%s' (%s->%s): %s",
+                engine_name,
+                text,
+                self.config.source_lang,
+                spec.lang,
+                exc,
+            )
