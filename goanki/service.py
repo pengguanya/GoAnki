@@ -1,0 +1,71 @@
+"""High-level translation orchestration."""
+
+from __future__ import annotations
+
+import json
+import logging
+import os
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, Iterable, List, Sequence
+
+try:  # pragma: no cover - tqdm is optional at runtime, covered via dependency
+    from tqdm import tqdm
+except ImportError:  # pragma: no cover
+    tqdm = None
+
+from goanki.cache import TranslationCache
+from goanki.io.config import AppConfig, TargetSpec
+from goanki.models import FlashcardRecord
+from goanki.translators import TranslationResult, TranslatorError, registry
+
+
+@dataclass(slots=True)
+class TranslationTask:
+    word: str
+
+
+class TranslationService:
+    """Translate batches of words using configured engines."""
+
+    def __init__(
+        self,
+        config: AppConfig,
+        *,
+        cache: TranslationCache | None = None,
+    ) -> None:
+        self.config = config
+        self.cache = cache
+        self.log = logging.getLogger("goanki.service")
+        self._translators: Dict[str, object] = {}
+
+    def translate_words(self, words: Sequence[str]) -> List[FlashcardRecord]:
+        if not words:
+            return []
+        tasks = [TranslationTask(word=word) for word in words]
+        iterator: Iterable[TranslationTask] = tasks
+        if self.config.progress and tqdm:  # pragma: no branch - depends on availability
+            iterator = tqdm(tasks, desc="Translating", unit="card")
+        records: List[FlashcardRecord] = []
+        with ThreadPoolExecutor(max_workers=self.config.workers) as executor:
+            for record in executor.map(self._translate_task, iterator):
+                records.append(record)
+        return records
+
+    def _translate_task(self, task: TranslationTask) -> FlashcardRecord:
+        original = task.word
+        prompt = original
+        translations: List[TranslationResult] = []
+        for spec in self.config.targets:
+            result = self._translate_with_spec(original, spec)
+            translations.append(result)
+            if spec.use_as_prompt:
+                prompt = (
+                    result.metadata.get("formatted_source")
+                    or result.translated_text
+                    or prompt
+                )
+        return FlashcardRecord(source=original, prompt=prompt, translations=translations)
+
+    def _translate_with_spec(self, text: str, spec: TargetSpec) -> TranslationResult:
