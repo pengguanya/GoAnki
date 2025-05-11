@@ -63,3 +63,14 @@ class TranslationCache:
             self._conn.execute(
                 """
                 INSERT OR REPLACE INTO translations
+                (engine, source_lang, target_lang, text, translated_text, metadata, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (engine, source_lang, target_lang, text, translated_text, metadata, time.time()),
+            )
+
+    def close(self) -> None:
+        """Close the underlying sqlite connection."""
+        self._conn.close()
+
+
