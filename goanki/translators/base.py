@@ -49,3 +49,55 @@ class HTTPTranslator:
         self.session.headers.setdefault("User-Agent", self.user_agent)
         self.log = logging.getLogger(f"goanki.translators.{self.name}")
 
+    def request(
+        self,
+        method: str,
+        url: str,
+        *,
+        params: Optional[Dict[str, Any]] = None,
+        timeout: Optional[float] = None,
+    ) -> requests.Response:
+        """Perform an HTTP request with retries and exponential backoff."""
+        timeout = timeout or self.default_timeout
+        attempt = 0
+        while True:
+            try:
+                response = self.session.request(method, url, params=params, timeout=timeout)
+                response.raise_for_status()
+                return response
+            except requests.RequestException as exc:  # pragma: no cover - network failure path
+                if attempt >= self.max_retries:
+                    self.log.error("Translator %s failed: %s", self.name, exc)
+                    raise TranslatorError(str(exc)) from exc
+                sleep_for = self.backoff_factor * (2**attempt)
+                self.log.warning(
+                    "Request failed for %s (attempt %s/%s): %s. Retrying in %.2fs",
+                    self.name,
+                    attempt + 1,
+                    self.max_retries + 1,
+                    exc,
+                    sleep_for,
+                )
+                time.sleep(sleep_for)
+                attempt += 1
+
+    def translate(self, text: str, source_lang: str, target_lang: str) -> TranslationResult:
+        raise NotImplementedError
+
+
+def ensure_language(lang: str) -> str:
+    """Normalize language inputs to lowercase BCP-47 codes."""
+    return lang.strip().lower()
+
+
+def deduplicate_preserve_order(items: Iterable[str]) -> list[str]:
+    """Return items without duplicates, preserving first occurrence order."""
+    seen = set()
+    ordered: list[str] = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            ordered.append(item)
+    return ordered
+
+
