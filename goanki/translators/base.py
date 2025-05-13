@@ -22,3 +22,7 @@ class TranslationResult:
     source_lang: str
     target_lang: str
     text: str
+    translated_text: Optional[str]
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+
