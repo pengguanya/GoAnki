@@ -34,3 +34,9 @@ def _parse_autonotes(text: str) -> List[str]:
     first_line = text.splitlines()[0] if text else ""
     match = DATE_REGEX.search(first_line)
     if not match:
+        raise ValueError("AutoNotes files must contain a date field (dd.mm.yyyy).")
+    field_sep = match.group(0)
+    parts = first_line.split(field_sep, maxsplit=1)
+    if len(parts) < 2:
+        return []
+    tail = parts[1].replace("|", " ")
