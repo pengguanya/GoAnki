@@ -40,3 +40,16 @@ def _parse_autonotes(text: str) -> List[str]:
     if len(parts) < 2:
         return []
     tail = parts[1].replace("|", " ")
+    return tail.split()
+
+
+def _parse_plain_lines(lines: Iterable[str]) -> List[str]:
+    words: List[str] = []
+    for line in lines:
+        cleaned = line.strip()
+        if not cleaned or DATE_REGEX.search(cleaned):
+            continue
+        words.append(cleaned)
+    return words
+
+
