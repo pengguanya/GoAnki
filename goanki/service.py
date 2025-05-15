@@ -94,3 +94,9 @@ class TranslationService:
                 spec.lang,
                 exc,
             )
+            result = TranslationResult(
+                engine=engine_name,
+                source_lang=self.config.source_lang,
+                target_lang=spec.lang,
+                text=text,
+                translated_text=None,
