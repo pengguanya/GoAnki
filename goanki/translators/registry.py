@@ -34,3 +34,15 @@ class TranslatorRegistry:
 
     def names(self) -> Iterable[str]:
         """Return registered names."""
+        return sorted(self._registry)
+
+
+registry = TranslatorRegistry()
+
+
+def register(translator_cls: Type[Translator]) -> Type[Translator]:
+    """Class decorator to register translators."""
+    registry.register(translator_cls)
+    return translator_cls
+
+
