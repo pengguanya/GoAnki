@@ -10,3 +10,7 @@ from . import google as _google  # noqa: F401
 from . import linguee as _linguee  # noqa: F401
 
 __all__ = [
+    "HTTPTranslator",
+    "TranslationResult",
+    "Translator",
+    "TranslatorError",
