@@ -40,3 +40,9 @@ class strformator:
 
     @staticmethod
     def mergeurl(mainurl, path):
+        return urllib.parse.urljoin(mainurl, path)
+
+class google:
+    def __init__(self, inlang, outlang, theword):
+        self.inlang = inlang
+        self.outlang = outlang
