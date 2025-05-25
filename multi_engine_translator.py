@@ -208,3 +208,74 @@ def is_sentance(instr):
 def transword_writeoutput(inword, inlang, outlang_list, outfilename):
     '''read a word string and save the input word and the output translation into a csv file'''
     output_list = []
+    if 'en' in outlang_list and not is_sentance(inword):
+        trans = linguee(inlang, 'en', inword)
+        firstelement = trans.format_inword()
+    else:
+        firstelement = inword
+
+    output_list.append(firstelement)
+
+    for lan in outlang_list:
+        if lan is 'en' and not is_sentance(inword):
+            transnew = linguee(inlang, lan, inword)
+            output_list.append(transnew.getanswer())
+        else:
+            transnew = google(inlang, lan, inword)
+            output_list.append(transnew.getanswer())
+    print(inword, output_list)
+    outstr = ",".join(output_list) + ",\n"
+    outstrparsed = html_decode(outstr)
+    with open(outfilename, 'a', encoding='utf-8') as text_file:
+        text_file.write(outstrparsed)
+
+# get the input word list
+inputfile = sys.argv[1]
+
+dateregex = re.compile('\d{2}\.\d{2}\.\d{4}')
+# if the file is saved from AutoNotes then it is a string
+# read a string from a file
+if '_AutoNotes' in inputfile:
+    with open(inputfile, 'r', encoding = 'utf-8') as f:
+        first_line = f.readline()
+        fieldsepstr = dateregex.search(first_line).group()
+        inwordlist = first_line.split(fieldsepstr)[1].split()
+
+# if the file is self-created then it contains multi-lines with empty lines
+# read the the lines and ignore the empty lines and the header (the line containing dateregex)
+else:
+    with open(inputfile, 'r', encoding = 'utf-8') as f:
+        linesgen = (line.rstrip() for line in f)
+        inwordlist = [line for line in linesgen if line and not dateregex.search(line)]
+
+# Delete duplicate in the input list
+# Preserve order is only useful when multithread is switch off
+# Not sure about the BigO of set(a_list), if it is O(n*log(n))
+# del_dups can be used to speed up
+#unique_inwordlist = del_dups(inwordlist) # BigO -> O(n)
+
+unique_inwordlist = list(set(inwordlist)) # BigO -> set(a_list): O(n*log(n)) or O(n)???
+
+# define output file name
+outfilename = os.path.splitext(inputfile)[0] + '_GoAnki.csv'
+
+# if the output already exists in current direcotry, remove it. Otherwise do nothing.
+try:
+    os.remove(outfilename)
+except OSError:
+    pass
+
+# translate the words in word list and save the results in a csv file with multithread (speed up)
+jobs = []
+inlang = 'de'
+outlang = ['en', 'zh']
+for word in unique_inwordlist:
+    thread = threading.Thread(target=transword_writeoutput, args = (word,), kwargs = strformator.keywordsdict(inlang = inlang, outlang_list = outlang, outfilename = outfilename))
+    jobs.append(thread)
+
+for j in jobs:
+    j.start()
+
+for j in jobs:
+    j.join()
+
