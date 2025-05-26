@@ -30,3 +30,19 @@ class TranslatorRegistry:
         if not translator_cls:
             available = ", ".join(sorted(self._registry))
             raise KeyError(f"Translator '{name}' is not registered. Available: {available or 'none'}.")
+        return translator_cls(**kwargs)
+
+    def names(self) -> Iterable[str]:
+        """Return registered names."""
+        return sorted(self._registry)
+
+
+registry = TranslatorRegistry()
+
+
+def register(translator_cls: Type[Translator]) -> Type[Translator]:
+    """Class decorator to register translators."""
+    registry.register(translator_cls)
+    return translator_cls
+
+
