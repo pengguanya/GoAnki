@@ -118,3 +118,15 @@ try:
 except OSError:
     pass
 
+# translate the words in word list and save the results in a csv file with multithread (speed up)
+jobs = []
+for word in unique_inwordlist:
+    thread = threading.Thread(target=transword_writeoutput, args = (word,), kwargs = {'outfilename' : outfilename})
+    jobs.append(thread)
+
+for j in jobs:
+    j.start()
+
+for j in jobs:
+    j.join()
+
