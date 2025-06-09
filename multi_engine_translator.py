@@ -58,3 +58,9 @@ class google:
     def getanswer(self):
         mark='class="t0">'
         content = self.page
+        if not content:
+            print('Load page failed!')
+            return None
+        else:
+            startpos = content.index(mark)
+            remaincont = content[content.find(mark)+len(mark):]
