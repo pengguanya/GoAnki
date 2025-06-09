@@ -52,3 +52,9 @@ class google:
         self.path = 'm'
         self.keywords = strformator.keywordsdict(sl = self.inlang, tl = self.outlang, ie = 'UTF-8', q = self.theword)
         # -------------------------
+        self.url = strformator.mergeurl(self.mainurl, self.path)
+        self.page = fetch_page.getpage(self.url, self.keywords)
+
+    def getanswer(self):
+        mark='class="t0">'
+        content = self.page
