@@ -64,3 +64,9 @@ class google:
         else:
             startpos = content.index(mark)
             remaincont = content[content.find(mark)+len(mark):]
+            result = remaincont.split('<')[0]
+            return result
+
+    def format_inword(self):
+        inwordfull = self.theword
+        return inwordfull
