@@ -14,3 +14,8 @@ __all__ = [
     "TranslationResult",
     "Translator",
     "TranslatorError",
+    "register",
+    "registry",
+]
+
+
