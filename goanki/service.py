@@ -100,3 +100,9 @@ class TranslationService:
                 target_lang=spec.lang,
                 text=text,
                 translated_text=None,
+                metadata={"error": str(exc)},
+            )
+        self._store_cache(result)
+        return result
+
+    def _get_translator(self, name: str):
