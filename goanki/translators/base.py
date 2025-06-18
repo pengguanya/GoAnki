@@ -26,3 +26,7 @@ class TranslationResult:
     metadata: Dict[str, Any] = field(default_factory=dict)
 
 
+class Translator(Protocol):
+    """Protocol implemented by all translator engines."""
+
+    name: str
