@@ -106,3 +106,9 @@ class TranslationService:
         return result
 
     def _get_translator(self, name: str):
+        if name not in self._translators:
+            translator = registry.create(name)
+            # Apply runtime overrides for retries/timeouts.
+            if hasattr(translator, "max_retries"):
+                setattr(translator, "max_retries", self.config.retries)
+            if hasattr(translator, "default_timeout"):
