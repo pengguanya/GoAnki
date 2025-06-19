@@ -28,3 +28,9 @@ class LingueeTranslator(HTTPTranslator):
         text = text.strip()
         src = ensure_language(source_lang)
         tgt = ensure_language(target_lang)
+        path = "/".join((f"{src}-{tgt}", "search"))
+        url = urljoin(self.base_url, path)
+        params = {"query": text, "source": "auto"}
+        response = self.request("GET", url, params=params)
+        soup = BeautifulSoup(response.text, "lxml")
+        translated_text = self._extract_translation(soup)
