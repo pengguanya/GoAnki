@@ -70,3 +70,9 @@ class google:
     def format_inword(self):
         inwordfull = self.theword
         return inwordfull
+
+class linguee:
+    def __init__(self, inlang, outlang, theword):
+        self.inlang = inlang
+        self.outlang = outlang
+        self.theword = theword
