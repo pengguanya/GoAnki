@@ -112,3 +112,9 @@ class TranslationService:
             if hasattr(translator, "max_retries"):
                 setattr(translator, "max_retries", self.config.retries)
             if hasattr(translator, "default_timeout"):
+                setattr(translator, "default_timeout", self.config.timeout)
+            secret_env = self.config.secrets.get(name) if hasattr(self.config, "secrets") else None
+            if secret_env:
+                setattr(translator, "api_key", os.environ.get(secret_env))
+            self._translators[name] = translator
+        return self._translators[name]
