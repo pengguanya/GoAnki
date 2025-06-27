@@ -118,3 +118,9 @@ class TranslationService:
                 setattr(translator, "api_key", os.environ.get(secret_env))
             self._translators[name] = translator
         return self._translators[name]
+
+    def _fetch_cache(
+        self, engine: str, source_lang: str, target_lang: str, text: str
+    ) -> tuple[str, str | None] | None:
+        if not self.cache or not self.config.cache_enabled:
+            return None
