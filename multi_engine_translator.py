@@ -76,3 +76,9 @@ class linguee:
         self.inlang = inlang
         self.outlang = outlang
         self.theword = theword
+        # --------------------------
+        self.mainurl = 'http://www.linguee.com/'
+        self.path = '/'.join(('-'.join((inlang, outlang)), 'search'))
+        self.keywords = strformator.keywordsdict(source = 'auto', query = self.theword)
+        # -------------------------
+        self.url = strformator.mergeurl(self.mainurl, self.path)
