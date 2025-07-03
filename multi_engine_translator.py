@@ -82,3 +82,9 @@ class linguee:
         self.keywords = strformator.keywordsdict(source = 'auto', query = self.theword)
         # -------------------------
         self.url = strformator.mergeurl(self.mainurl, self.path)
+        self.page = fetch_page.getpage(self.url, self.keywords)
+        self.soup = fetch_page.getsoup(self.page)
+        self.genderdict = {
+                'masculine' : 'der',
+                'feminine'  : 'die',
+                'neuter'    : 'das',
