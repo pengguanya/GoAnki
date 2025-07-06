@@ -34,3 +34,9 @@ class LingueeTranslator(HTTPTranslator):
         response = self.request("GET", url, params=params)
         soup = BeautifulSoup(response.text, "lxml")
         translated_text = self._extract_translation(soup)
+        formatted_source = self._format_source_word(soup, text)
+        metadata = {
+            "url": str(response.url),
+            "formatted_source": formatted_source,
+            "word_type": self._extract_type(soup),
+        }
