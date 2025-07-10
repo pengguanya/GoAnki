@@ -124,3 +124,9 @@ class TranslationService:
     ) -> tuple[str, str | None] | None:
         if not self.cache or not self.config.cache_enabled:
             return None
+        return self.cache.get(engine, source_lang, target_lang, text)
+
+    def _store_cache(self, result: TranslationResult) -> None:
+        if not self.cache or not self.config.cache_enabled:
+            return
+        metadata = json.dumps(result.metadata, ensure_ascii=False) if result.metadata else None
