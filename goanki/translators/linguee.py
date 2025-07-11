@@ -40,3 +40,9 @@ class LingueeTranslator(HTTPTranslator):
             "formatted_source": formatted_source,
             "word_type": self._extract_type(soup),
         }
+        return TranslationResult(
+            engine=self.name,
+            source_lang=src,
+            target_lang=tgt,
+            text=text,
+            translated_text=translated_text,
