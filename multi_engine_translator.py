@@ -88,3 +88,9 @@ class linguee:
                 'masculine' : 'der',
                 'feminine'  : 'die',
                 'neuter'    : 'das',
+                'plural'    : 'die',
+                'X'         : ''
+                }
+
+    def getinword_frompage(self):
+        try:
