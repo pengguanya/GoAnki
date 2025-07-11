@@ -30,3 +30,7 @@ class Translator(Protocol):
     """Protocol implemented by all translator engines."""
 
     name: str
+
+    def translate(self, text: str, source_lang: str, target_lang: str) -> TranslationResult:
+        """Translate text from source_lang to target_lang."""
+
