@@ -94,3 +94,9 @@ class linguee:
 
     def getinword_frompage(self):
         try:
+            inword_tag = self.soup.find('span', class_ = 'dictTerm').string
+        except AttributeError as e:
+            inword_tag = self.theword
+        return inword_tag
+
+    def getanswer(self):
