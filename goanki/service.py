@@ -130,3 +130,13 @@ class TranslationService:
         if not self.cache or not self.config.cache_enabled:
             return
         metadata = json.dumps(result.metadata, ensure_ascii=False) if result.metadata else None
+        self.cache.set(
+            result.engine,
+            result.source_lang,
+            result.target_lang,
+            result.text,
+            result.translated_text,
+            metadata,
+        )
+
+
