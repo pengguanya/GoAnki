@@ -38,3 +38,7 @@ class Translator(Protocol):
 class HTTPTranslator:
     """Base class providing HTTP utilities with retries and logging."""
 
+    name = "base"
+    default_timeout = 10
+    max_retries = 2
+    backoff_factor = 0.5
