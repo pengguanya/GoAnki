@@ -46,3 +46,9 @@ class LingueeTranslator(HTTPTranslator):
             target_lang=tgt,
             text=text,
             translated_text=translated_text,
+            metadata=metadata,
+        )
+
+    def _extract_translation(self, soup: BeautifulSoup) -> Optional[str]:
+        answer_tag_list = soup.find_all("a", class_="dictLink")
+        if len(answer_tag_list) > 1:
