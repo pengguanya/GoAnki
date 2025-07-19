@@ -46,3 +46,7 @@ class HTTPTranslator:
 
     def __init__(self, session: Optional[requests.Session] = None):
         self.session = session or requests.Session()
+        self.session.headers.setdefault("User-Agent", self.user_agent)
+        self.log = logging.getLogger(f"goanki.translators.{self.name}")
+
+    def request(
