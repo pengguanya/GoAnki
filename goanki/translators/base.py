@@ -42,3 +42,7 @@ class HTTPTranslator:
     default_timeout = 10
     max_retries = 2
     backoff_factor = 0.5
+    user_agent = "GoAnkiBot/0.1 (+https://github.com/pengg3/goanki)"
+
+    def __init__(self, session: Optional[requests.Session] = None):
+        self.session = session or requests.Session()
