@@ -100,3 +100,9 @@ class linguee:
         return inword_tag
 
     def getanswer(self):
+        answer_tag_list = self.soup.find_all('a', class_ = 'dictLink')
+        if answer_tag_list and len(answer_tag_list) > 1:
+            short_tag_list = answer_tag_list[:2]
+            answerstr = '; '.join([tag.string for tag in short_tag_list])
+        else:
+            try:
