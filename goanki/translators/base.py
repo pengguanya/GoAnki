@@ -54,3 +54,7 @@ class HTTPTranslator:
         method: str,
         url: str,
         *,
+        params: Optional[Dict[str, Any]] = None,
+        timeout: Optional[float] = None,
+    ) -> requests.Response:
+        """Perform an HTTP request with retries and exponential backoff."""
