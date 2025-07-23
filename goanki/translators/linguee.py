@@ -52,3 +52,9 @@ class LingueeTranslator(HTTPTranslator):
     def _extract_translation(self, soup: BeautifulSoup) -> Optional[str]:
         answer_tag_list = soup.find_all("a", class_="dictLink")
         if len(answer_tag_list) > 1:
+            short_list = answer_tag_list[:2]
+            joint = "; ".join(tag.text.strip() for tag in short_list if tag.text)
+            return joint or None
+        if answer_tag_list:
+            tag = answer_tag_list[0]
+            return tag.text.strip() if tag.text else None
