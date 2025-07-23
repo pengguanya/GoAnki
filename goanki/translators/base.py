@@ -50,3 +50,7 @@ class HTTPTranslator:
         self.log = logging.getLogger(f"goanki.translators.{self.name}")
 
     def request(
+        self,
+        method: str,
+        url: str,
+        *,
