@@ -58,3 +58,9 @@ class LingueeTranslator(HTTPTranslator):
         if answer_tag_list:
             tag = answer_tag_list[0]
             return tag.text.strip() if tag.text else None
+        return None
+
+    def _format_source_word(self, soup: BeautifulSoup, fallback: str) -> str:
+        word = self._extract_word(soup) or fallback
+        word_type = self._extract_type(soup)
+        if word_type and "noun" in word_type.lower():
