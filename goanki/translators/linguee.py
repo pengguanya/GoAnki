@@ -64,3 +64,9 @@ class LingueeTranslator(HTTPTranslator):
         word = self._extract_word(soup) or fallback
         word_type = self._extract_type(soup)
         if word_type and "noun" in word_type.lower():
+            segments = [segment.strip() for segment in word_type.split(",")]
+            noun_gender = segments[-1].lower() if segments else ""
+            article = self.gender_map.get(noun_gender, "")
+            descriptor = segments[0] if segments else word_type
+            noun_repr = f"{article} {word}".strip()
+            return f"{noun_repr} ({descriptor})"
