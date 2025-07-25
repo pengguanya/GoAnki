@@ -58,3 +58,7 @@ class HTTPTranslator:
         timeout: Optional[float] = None,
     ) -> requests.Response:
         """Perform an HTTP request with retries and exponential backoff."""
+        timeout = timeout or self.default_timeout
+        attempt = 0
+        while True:
+            try:
