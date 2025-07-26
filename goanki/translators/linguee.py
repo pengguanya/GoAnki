@@ -70,3 +70,9 @@ class LingueeTranslator(HTTPTranslator):
             descriptor = segments[0] if segments else word_type
             noun_repr = f"{article} {word}".strip()
             return f"{noun_repr} ({descriptor})"
+        if word_type and "," in word_type:
+            descriptor = word_type.split(",")[0].strip()
+            return f"{word} ({descriptor})"
+        if word_type:
+            return f"{word} ({word_type})"
+        return word
