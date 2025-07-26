@@ -76,3 +76,19 @@ class LingueeTranslator(HTTPTranslator):
         if word_type:
             return f"{word} ({word_type})"
         return word
+
+    @staticmethod
+    def _extract_word(soup: BeautifulSoup) -> Optional[str]:
+        span = soup.find("span", class_="dictTerm")
+        if span and span.text:
+            return span.text.strip()
+        return None
+
+    @staticmethod
+    def _extract_type(soup: BeautifulSoup) -> Optional[str]:
+        span = soup.find("span", class_="tag_wordtype")
+        if span and span.text:
+            return span.text.strip()
+        return None
+
+
