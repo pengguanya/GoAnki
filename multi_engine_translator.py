@@ -112,3 +112,9 @@ class linguee:
         return answerstr
 
     def gettype(self):
+        try:
+            typestr = self.soup.find('span', class_ = 'tag_wordtype').string
+        except AttributeError:
+            typestr = None
+        return typestr
+
