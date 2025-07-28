@@ -106,3 +106,9 @@ class linguee:
             answerstr = '; '.join([tag.string for tag in short_tag_list])
         else:
             try:
+                answerstr = answer_tag_list[0].string
+            except IndexError:
+                answerstr = None
+        return answerstr
+
+    def gettype(self):
