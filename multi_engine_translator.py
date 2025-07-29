@@ -118,3 +118,9 @@ class linguee:
             typestr = None
         return typestr
 
+    def format_inword(self):
+        inword = self.getinword_frompage()
+        typestr = self.gettype()
+        if typestr and 'noun' in typestr:
+            wordtype = typestr.split(',')[0].strip()
+            noun_gender = typestr.split(',')[-1].strip()
