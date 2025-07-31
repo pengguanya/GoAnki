@@ -62,3 +62,7 @@ class HTTPTranslator:
         attempt = 0
         while True:
             try:
+                response = self.session.request(method, url, params=params, timeout=timeout)
+                response.raise_for_status()
+                return response
+            except requests.RequestException as exc:  # pragma: no cover - network failure path
