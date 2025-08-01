@@ -124,3 +124,9 @@ class linguee:
         if typestr and 'noun' in typestr:
             wordtype = typestr.split(',')[0].strip()
             noun_gender = typestr.split(',')[-1].strip()
+            noun_gender_mark = self.genderdict.get(noun_gender, 'X')
+            inwordfull = '{} {} ({})'.format(noun_gender_mark, inword, wordtype)
+        elif typestr and ',' in typestr:
+            wordtype = typestr.split(',')[0].strip()
+            inwordfull = '{} ({})'.format(inword, wordtype)
+        elif typestr:
