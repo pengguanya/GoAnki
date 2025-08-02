@@ -130,3 +130,9 @@ class linguee:
             wordtype = typestr.split(',')[0].strip()
             inwordfull = '{} ({})'.format(inword, wordtype)
         elif typestr:
+            wordtype = typestr
+            inwordfull = '{} ({})'.format(inword, wordtype)
+        else:
+            inwordfull = inword
+        return inwordfull
+
