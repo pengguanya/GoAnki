@@ -66,3 +66,7 @@ class HTTPTranslator:
                 response.raise_for_status()
                 return response
             except requests.RequestException as exc:  # pragma: no cover - network failure path
+                if attempt >= self.max_retries:
+                    self.log.error("Translator %s failed: %s", self.name, exc)
+                    raise TranslatorError(str(exc)) from exc
+                sleep_for = self.backoff_factor * (2**attempt)
