@@ -70,3 +70,7 @@ class HTTPTranslator:
                     self.log.error("Translator %s failed: %s", self.name, exc)
                     raise TranslatorError(str(exc)) from exc
                 sleep_for = self.backoff_factor * (2**attempt)
+                self.log.warning(
+                    "Request failed for %s (attempt %s/%s): %s. Retrying in %.2fs",
+                    self.name,
+                    attempt + 1,
