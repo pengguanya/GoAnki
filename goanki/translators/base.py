@@ -74,3 +74,7 @@ class HTTPTranslator:
                     "Request failed for %s (attempt %s/%s): %s. Retrying in %.2fs",
                     self.name,
                     attempt + 1,
+                    self.max_retries + 1,
+                    exc,
+                    sleep_for,
+                )
