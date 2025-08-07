@@ -148,3 +148,9 @@ class TransCrawler:
         self.url = 'http://translate.google.com/m'
 
     def getPage(self):
+        url = self.url
+        keywords = self.keywords
+        try:
+            response = requests.get(url, keywords, headers = self.headers)
+            content = response.text
+            return content
