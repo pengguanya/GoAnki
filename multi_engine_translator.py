@@ -154,3 +154,9 @@ class TransCrawler:
             response = requests.get(url, keywords, headers = self.headers)
             content = response.text
             return content
+        except requests.exceptions.RequestException as e:
+            print(e)
+            return None
+
+    def getWord(self):
+        mark='class="t0">'
