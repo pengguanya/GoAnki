@@ -82,3 +82,7 @@ class HTTPTranslator:
                 attempt += 1
 
     def translate(self, text: str, source_lang: str, target_lang: str) -> TranslationResult:
+        raise NotImplementedError
+
+
+def ensure_language(lang: str) -> str:
