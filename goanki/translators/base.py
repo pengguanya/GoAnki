@@ -78,3 +78,7 @@ class HTTPTranslator:
                     exc,
                     sleep_for,
                 )
+                time.sleep(sleep_for)
+                attempt += 1
+
+    def translate(self, text: str, source_lang: str, target_lang: str) -> TranslationResult:
