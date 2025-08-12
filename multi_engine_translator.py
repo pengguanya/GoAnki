@@ -160,3 +160,9 @@ class TransCrawler:
 
     def getWord(self):
         mark='class="t0">'
+        content = self.getPage()
+        if not content:
+            print('Load page failed!')
+            return None
+        else:
+            #return content
