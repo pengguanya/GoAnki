@@ -86,3 +86,7 @@ class HTTPTranslator:
 
 
 def ensure_language(lang: str) -> str:
+    """Normalize language inputs to lowercase BCP-47 codes."""
+    return lang.strip().lower()
+
+
