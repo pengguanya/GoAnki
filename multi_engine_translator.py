@@ -166,3 +166,9 @@ class TransCrawler:
             return None
         else:
             #return content
+            startpos = content.index(mark)
+            remaincont = content[content.find(mark)+len(mark):]
+            result = remaincont.split('<')[0]
+            return result
+
+# This function is useful only when multithread is switch off
