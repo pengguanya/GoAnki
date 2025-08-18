@@ -172,3 +172,9 @@ class TransCrawler:
             return result
 
 # This function is useful only when multithread is switch off
+# Because multithread will destroy the order later
+# If set() is slower than O(n), this can be used for the speed purpose
+# def del_dups(seq):
+#     '''function to delete duplicate while preserve order'''
+#     seen = {}
+#     newlist = []
