@@ -90,3 +90,14 @@ def ensure_language(lang: str) -> str:
     return lang.strip().lower()
 
 
+def deduplicate_preserve_order(items: Iterable[str]) -> list[str]:
+    """Return items without duplicates, preserving first occurrence order."""
+    seen = set()
+    ordered: list[str] = []
+    for item in items:
+        if item not in seen:
+            seen.add(item)
+            ordered.append(item)
+    return ordered
+
+
