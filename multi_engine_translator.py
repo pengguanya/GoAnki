@@ -190,3 +190,9 @@ def html_decode(s):
     """
     htmlCodes = (
             ("'", '&#39;'),
+            ('"', '&quot;'),
+            ('>', '&gt;'),
+            ('<', '&lt;'),
+            ('&', '&amp;')
+        )
+    for code in htmlCodes:
