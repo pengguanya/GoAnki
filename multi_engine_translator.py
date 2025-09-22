@@ -196,3 +196,9 @@ def html_decode(s):
             ('&', '&amp;')
         )
     for code in htmlCodes:
+        s = s.replace(code[1], code[0])
+    return s
+
+def is_sentance(instr):
+    if " " in instr.strip():
+        return True
