@@ -202,3 +202,9 @@ def html_decode(s):
 def is_sentance(instr):
     if " " in instr.strip():
         return True
+    else:
+        return False
+
+def transword_writeoutput(inword, inlang, outlang_list, outfilename):
+    '''read a word string and save the input word and the output translation into a csv file'''
+    output_list = []
