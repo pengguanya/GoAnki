@@ -208,3 +208,9 @@ def is_sentance(instr):
 def transword_writeoutput(inword, inlang, outlang_list, outfilename):
     '''read a word string and save the input word and the output translation into a csv file'''
     output_list = []
+    if 'en' in outlang_list and not is_sentance(inword):
+        trans = linguee(inlang, 'en', inword)
+        firstelement = trans.format_inword()
+    else:
+        firstelement = inword
+
