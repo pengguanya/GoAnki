@@ -214,3 +214,9 @@ def transword_writeoutput(inword, inlang, outlang_list, outfilename):
     else:
         firstelement = inword
 
+    output_list.append(firstelement)
+
+    for lan in outlang_list:
+        if lan is 'en' and not is_sentance(inword):
+            transnew = linguee(inlang, lan, inword)
+            output_list.append(transnew.getanswer())
