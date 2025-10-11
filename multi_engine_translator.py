@@ -220,3 +220,9 @@ def transword_writeoutput(inword, inlang, outlang_list, outfilename):
         if lan is 'en' and not is_sentance(inword):
             transnew = linguee(inlang, lan, inword)
             output_list.append(transnew.getanswer())
+        else:
+            transnew = google(inlang, lan, inword)
+            output_list.append(transnew.getanswer())
+    print(inword, output_list)
+    outstr = ",".join(output_list) + ",\n"
+    outstrparsed = html_decode(outstr)
