@@ -226,3 +226,9 @@ def transword_writeoutput(inword, inlang, outlang_list, outfilename):
     print(inword, output_list)
     outstr = ",".join(output_list) + ",\n"
     outstrparsed = html_decode(outstr)
+    with open(outfilename, 'a', encoding='utf-8') as text_file:
+        text_file.write(outstrparsed)
+
+# get the input word list
+inputfile = sys.argv[1]
+
