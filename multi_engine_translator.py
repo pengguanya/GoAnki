@@ -238,3 +238,9 @@ dateregex = re.compile('\d{2}\.\d{2}\.\d{4}')
 if '_AutoNotes' in inputfile:
     with open(inputfile, 'r', encoding = 'utf-8') as f:
         first_line = f.readline()
+        fieldsepstr = dateregex.search(first_line).group()
+        inwordlist = first_line.split(fieldsepstr)[1].split()
+
+# if the file is self-created then it contains multi-lines with empty lines
+# read the the lines and ignore the empty lines and the header (the line containing dateregex)
+else:
