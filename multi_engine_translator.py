@@ -244,3 +244,9 @@ if '_AutoNotes' in inputfile:
 # if the file is self-created then it contains multi-lines with empty lines
 # read the the lines and ignore the empty lines and the header (the line containing dateregex)
 else:
+    with open(inputfile, 'r', encoding = 'utf-8') as f:
+        linesgen = (line.rstrip() for line in f)
+        inwordlist = [line for line in linesgen if line and not dateregex.search(line)]
+
+# Delete duplicate in the input list
+# Preserve order is only useful when multithread is switch off
