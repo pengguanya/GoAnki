@@ -250,3 +250,32 @@ else:
 
 # Delete duplicate in the input list
 # Preserve order is only useful when multithread is switch off
+# Not sure about the BigO of set(a_list), if it is O(n*log(n))
+# del_dups can be used to speed up
+#unique_inwordlist = del_dups(inwordlist) # BigO -> O(n)
+
+unique_inwordlist = list(set(inwordlist)) # BigO -> set(a_list): O(n*log(n)) or O(n)???
+
+# define output file name
+outfilename = os.path.splitext(inputfile)[0] + '_GoAnki.csv'
+
+# if the output already exists in current direcotry, remove it. Otherwise do nothing.
+try:
+    os.remove(outfilename)
+except OSError:
+    pass
+
+# translate the words in word list and save the results in a csv file with multithread (speed up)
+jobs = []
+inlang = 'de'
+outlang = ['en', 'zh']
+for word in unique_inwordlist:
+    thread = threading.Thread(target=transword_writeoutput, args = (word,), kwargs = strformator.keywordsdict(inlang = inlang, outlang_list = outlang, outfilename = outfilename))
+    jobs.append(thread)
+
+for j in jobs:
+    j.start()
+
+for j in jobs:
+    j.join()
+
